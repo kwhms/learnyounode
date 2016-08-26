@@ -9,10 +9,10 @@ There are two approaches you can take to this problem:
 
 **1)** Collect data across multiple "data" events and append the results together prior to printing the output. Use the "end" event to determine when the stream is finished and you can write the output.
 
-**2)** Use a third-party package to abstract the difficulties involved in collecting an entire stream of data. Two different packages provide a useful API for solving this problem (there are likely more!): `bl` (Buffer List) and `concat-stream`; take your pick!
+**2)** Use a third-party package to abstract the difficulties involved in collecting an entire stream of data. Two different packages provide a useful API for solving this problem (there are likely more!): `bl` (Buffer List) and `concat-stream-callback`; take your pick!
 
   <http://npm.im/bl>
-  <http://npm.im/concat-stream>
+  <http://npm.im/concat-stream-callback>
 
 To install a Node package, use the Node Package Manager `npm`. Simply type:
 
@@ -31,14 +31,14 @@ Node will first look in the core modules and then in the `node_modules` director
 If you don't have an Internet connection, simply make a `node_modules` directory and copy the entire directory for the package you want to use from inside the {appname} installation directory:
 
   {rootdir:/node_modules/bl}
-  {rootdir:/node_modules/concat-stream}
+  {rootdir:/node_modules/concat-stream-callback}
 
-Both `bl` and `concat-stream` can have a stream *piped* in to them and they will collect the data for you. Once the stream has ended, a callback will be fired with the data:
+Both `bl` and `concat-stream-callback` can have a stream *piped* in to them and they will collect the data for you. Once the stream has ended, a callback will be fired with the data:
 
 ```js
 response.pipe(bl(function (err, data) { /* ... */ }))
 // or
-response.pipe(concatStream(function (data) { /* ... */ }))
+response.pipe(concatStreamCallback(function (err, data) { /* ... */ }))
 ```
 
 Note that you will probably need to `data.toString()` to convert from a Buffer.
